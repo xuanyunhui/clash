@@ -1,6 +1,6 @@
 FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
 LABEL org.opencontainers.image.source="https://github.com/Dreamacro/clash"
 
-RUN wget -O /etc/clash/Country.mmdb https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb
+RUN curl -o /etc/clash/Country.mmdb https://github.com/Dreamacro/maxmind-geoip/releases/latest/download/Country.mmdb
 COPY  bin/clash-linux-amd64 /usr/local/bin/clash
 ENTRYPOINT ["/clash"]
