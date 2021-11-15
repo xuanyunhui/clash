@@ -82,7 +82,7 @@ spec:
             workspace: source
         params:
           - name: IMAGE
-            value: quay.io/
+            value: quay.io/qixi17998/clash:$(params.revision)
           - name: DOCKERFILE
             value: ./Dockerfile.ubi
   workspaces:
