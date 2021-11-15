@@ -69,7 +69,22 @@ spec:
                 go env -w GO111MODULE=on
                 go env -w GOPROXY=https://goproxy.cn,direct
                 go mod download 
-                make docker
+                make linux-amd64
+                make linux-armv8
+      - name: build-image
+        taskRef:
+            name: buildah
+            kind: ClusterTask
+        runAfter:
+          - build-task
+        workspaces:
+          - name: source
+            workspace: source
+        params:
+          - name: IMAGE
+            value: quay.io/
+          - name: DOCKERFILE
+            value: ./Dockerfile.ubi
   workspaces:
   - name: source
     volumeClaimTemplate:
