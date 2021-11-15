@@ -63,7 +63,7 @@ spec:
             - name: source
           steps:
             - name: build-task
-              image: quay.xiaodiankeji.net/grizzlybear/golang:1.17-alpine
+              image: quay.xiaodiankeji.net/ruining/go-toolset:1.17.2
               workingDir: $(workspaces.source.path)
               script: |
                 go env -w GO111MODULE=on
