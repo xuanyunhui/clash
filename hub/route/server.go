@@ -9,6 +9,7 @@ import (
 	"time"
 
 	C "github.com/Dreamacro/clash/constant"
+	_ "github.com/Dreamacro/clash/constant/mime"
 	"github.com/Dreamacro/clash/log"
 	"github.com/Dreamacro/clash/tunnel/statistic"
 
@@ -114,10 +115,10 @@ func authentication(next http.Handler) http.Handler {
 		}
 
 		header := r.Header.Get("Authorization")
-		text := strings.SplitN(header, " ", 2)
+		bearer, token, found := strings.Cut(header, " ")
 
-		hasInvalidHeader := text[0] != "Bearer"
-		hasInvalidSecret := len(text) != 2 || text[1] != serverSecret
+		hasInvalidHeader := bearer != "Bearer"
+		hasInvalidSecret := !found || token != serverSecret
 		if hasInvalidHeader || hasInvalidSecret {
 			render.Status(r, http.StatusUnauthorized)
 			render.JSON(w, r, ErrUnauthorized)
